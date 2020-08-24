@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-tw_Hant">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Image Color filter</title>
+        <style>
+            img {
+                filter: grayscale(1);
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Image Color filter</h1>
+        <h3 style="text-align: right;">程式撰寫：Bob</h3>
+
+        <img src="https://picsum.photos/640/480?random=1" alt="" />
+        <img src="https://picsum.photos/640/480?random=2" alt="" />
+        <img src="https://picsum.photos/640/480?random=3" alt="" />
+        <img src="https://picsum.photos/640/480?random=4" alt="" />
+        <img src="https://picsum.photos/640/480?random=5" alt="" />
+
+        <script>
+            let imgs = document.querySelectorAll("img");
+            imgs.forEach((img) =>
+                img.addEventListener("click", function () {
+                    this.style.filter = `grayscale(0%)`;
+                    fadeIn(img, 800);
+                })
+            );
+
+            function fadeIn(el, time) {
+                var last = +new Date();
+                let i = 1;
+                var tick = function () {
+                    i -= (new Date() - last) / time;
+                    el.style.filter = `grayscale(${i * 100}%`;
+                    last = +new Date();
+
+                    if (i >= 0) {
+                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    }
+                };
+
+                tick();
+            }
+
+            /**
+             * fadein (透明度)
+             * @param el
+             * @param time
+             */
+            function fadeIn1(el, time) {
+                el.style.opacity = 0;
+
+                var last = +new Date();
+                var tick = function () {
+                    el.style.opacity = +el.style.opacity + (new Date() - last) / time;
+                    last = +new Date();
+
+                    if (+el.style.opacity < 1) {
+                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    }
+                };
+
+                tick();
+            }
+
+            /**
+             * fadeIn (灰階 => 彩色)
+             * @param el
+             * @param time
+             */
+            function fadeIn2(el, time) {
+                var last = +new Date();
+                let i = 1;
+                var tick = function () {
+                    i -= (new Date() - last) / time;
+                    el.style.filter = `grayscale(${i * 100}%`;
+                    last = +new Date();
+
+                    if (i >= 0) {
+                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+                    }
+                };
+
+                tick();
+            }
+        </script>
+    </body>
+</html>
